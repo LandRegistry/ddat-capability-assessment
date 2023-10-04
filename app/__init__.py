@@ -3,6 +3,8 @@ from flask_assets import Bundle, Environment
 from flask_compress import Compress
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from govuk_frontend_wtf.main import WTFormsHelpers
@@ -13,7 +15,9 @@ from config import Config
 assets = Environment()
 compress = Compress()
 csrf = CSRFProtect()
+db = SQLAlchemy()
 limiter = Limiter(get_remote_address, default_limits=["2 per second", "60 per minute"])
+migrate = Migrate()
 talisman = Talisman()
 
 
@@ -48,7 +52,9 @@ def create_app(config_class=Config):
     assets.init_app(app)
     compress.init_app(app)
     csrf.init_app(app)
+    db.init_app(app)
     limiter.init_app(app)
+    migrate.init_app(app, db)
     talisman.init_app(app, content_security_policy=csp)
     WTFormsHelpers(app)
 
@@ -61,10 +67,8 @@ def create_app(config_class=Config):
         assets.register("js", js)
 
     # Register blueprints
-    from app.demos import bp as demo_bp
     from app.main import bp as main_bp
 
-    app.register_blueprint(demo_bp)
     app.register_blueprint(main_bp)
 
     return app
