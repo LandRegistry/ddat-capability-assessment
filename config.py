@@ -17,5 +17,5 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = (
         os.environ.get("DATABASE_URL").replace("postgres://", "postgresql://")
         if os.environ.get("DATABASE_URL")
-        else "postgresql://mash:mash@localhost:5432/mash"
+        else "postgresql://mash:mash@localhost:5432/capability"
     )
