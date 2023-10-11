@@ -1,0 +1,18 @@
+services:
+  web:
+    container_name: ddat-capability-assessment
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/home/containeruser
+    depends_on:
+      - redis
+  redis:
+    container_name: redis
+    image: "redis:7.0-alpine"
+    ports:
+      - 6379:6379
+  

@@ -4,54 +4,35 @@
 
 ### Required
 
-- Python 3.8.x or higher
-- PostgreSQL 14.x or higher
-
-### Optional
-
-- Redis 4.0.x or higher (for rate limiting, otherwise in-memory storage is used)
+- Docker
 
 ## Getting started
 
-### Create local Postgres database
+### Set local environment variables
 
-```shell
-sudo service postgresql start
-sudo su - postgres -c "create user mash with password mash"
-sudo su - postgres -c "createdb capability"
-sudo -u postgres psql
-grant all privileges on database capability to mash;
-```
+In the `Dockerfile` file you will find a number of environment variables. These are injected as global variables into the app and pre-populated into page templates as appropriate. Enter your specific information for the following:
 
-### Create venv and install requirements
+- CONTACT_EMAIL
+- CONTACT_PHONE
+- DEPARTMENT_NAME
+- DEPARTMENT_URL
+- SERVICE_NAME
+- SERVICE_PHASE
+- SERVICE_URL
 
-```shell
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt ; pip3 install -r requirements_dev.txt
-```
-
-### Get GOV.UK Frontend assets
-
-For convenience a shell script has been provided to download and extract the GOV.UK Frontend distribution assets
+### Get the latest GOV.UK Frontend assets
 
 ```shell
 ./build.sh
 ```
 
-### Run database migrations
+### Run containers
 
 ```shell
-flask db upgrade
+docker compose up
 ```
 
-### Run app
-
-```shell
-flask run
-```
-
-You should now have the app running on <http://localhost:5000/>
+You should now have the app running on <https://localhost:8000/>.
 
 ## Testing
 
