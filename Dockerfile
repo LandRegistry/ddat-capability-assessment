@@ -16,12 +16,12 @@ RUN pip install -r requirements.txt \
 # Set environment variables
 ENV CONTACT_EMAIL="[contact email]" \
     CONTACT_PHONE="[contact phone]" \
-    DATABASE_URL="postgresql://mash:mash@localhost:5432/capability" \
+    DATABASE_URL="postgresql://mash:mash@db:5432/capability" \
     DEPARTMENT_NAME="HM Land Registry" \
     DEPARTMENT_URL="https://www.gov.uk/government/organisations/land-registry" \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    REDIS_URL="redis://redis:6379" \
+    REDIS_URL="redis://cache:6379" \
     SECRET_KEY=4f378500459bb58fecf903ea3c113069f11f150b33388f56fc89f7edce0e6a84 \
     SERVICE_NAME="DDaT Capability Assessment" \
     SERVICE_PHASE="Alpha" \
