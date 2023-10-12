@@ -39,7 +39,26 @@ You should now have the app running on <https://localhost:8000/>.
 To run the tests:
 
 ```shell
-python -m pytest --cov=app --cov-report=term-missing --cov-branch
+docker compose exec web python -m pytest --cov=app --cov-report=term-missing --cov-branch
+```
+
+## Development environment
+
+```mermaid
+C4Container
+    title C4 Container diagram for DDaT Capability Assessment
+
+    Person(user, User, "A person in a DDaT Capability Framework defined role", $tags="v1.0")
+
+    Container_Boundary(c1, "DDaT Capability Assessment") {
+        Container(web_app, "Web Application", "Python, Flask", "Provides all the functionality to users via their web browser")
+        ContainerDb(database, "Database", "PostgreSQL, Docker Container", "Stores data relating to roles, skills, levels and assessments")
+        ContainerDb(cache, "Cache", "Redis, Docker Container", "Stores temporary cached data to improve performance")
+    }
+
+    Rel(user, web_app, "Uses", "HTTPS")
+    Rel(web_app, database, "Reads from and writes to", "sync, SQL")
+    Rel(web_app, cache, "Reads from and writes to", "sync")
 ```
 
 ## Data model
