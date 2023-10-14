@@ -1,7 +1,7 @@
-import json
 import uuid
 from datetime import datetime
 
+import pytz
 from sqlalchemy import UUID, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -19,15 +19,4 @@ class Role(db.Model):
     def __init__(self, title):
         self.id = str(uuid.uuid4())
         self.title = title.strip().title()
-        self.created_at = datetime.utcnow()
-
-    def __repr__(self):
-        return json.dumps(self.as_dict(), separators=(",", ":"))
-
-    def as_dict(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
-        }
+        self.created_at = pytz.utc.localize(datetime.utcnow())
