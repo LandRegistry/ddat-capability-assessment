@@ -74,8 +74,10 @@ def create_app(config_class=Config):
 
     # Register blueprints
     from app.main import bp as main_bp
+    from app.role import bp as role_bp
 
     app.register_blueprint(main_bp)
+    app.register_blueprint(role_bp)
 
     return app
 

@@ -12,4 +12,5 @@ gunicorn
 jsmin
 psycopg2
 python-dotenv
+pytz
 redis

@@ -97,11 +97,13 @@ pygments==2.16.1
     # via rich
 python-dotenv==1.0.0
     # via -r requirements.in
+pytz==2023.3.post1
+    # via -r requirements.in
 redis==5.0.1
     # via -r requirements.in
 rich==13.6.0
     # via flask-limiter
-sqlalchemy==2.0.21
+sqlalchemy==2.0.22
     # via
     #   alembic
     #   flask-sqlalchemy
