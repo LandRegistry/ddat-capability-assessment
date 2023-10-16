@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from govuk_frontend_wtf.wtforms_widgets import GovSelect, GovTextInput, GovSubmitInput
+from govuk_frontend_wtf.wtforms_widgets import GovSelect, GovSubmitInput, GovTextInput
 from wtforms import SelectField, StringField, SubmitField
 from wtforms.validators import InputRequired, Optional
 
@@ -11,6 +11,7 @@ class RoleForm(FlaskForm):
         widget=GovTextInput(),
     )
     submit = SubmitField("Create", widget=GovSubmitInput())
+
 
 class RoleFilterForm(FlaskForm):
     query = StringField("Search", validators=[Optional()])
