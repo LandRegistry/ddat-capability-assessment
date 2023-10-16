@@ -51,7 +51,7 @@ def create():
         db.session.add(new_role)
         db.session.commit()
         flash(
-            f"<a href='{url_for('role.view', id=new_role.id)}' class='alert-link'>{new_role.title}</a> has been created.",
+            f"{new_role.title} has been created.",
             "success",
         )
         return redirect(url_for("role.list"))
