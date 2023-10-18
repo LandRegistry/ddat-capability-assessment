@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block pageTitle %}{%- if form.errors %}Error: {% endif -%}Create a new role – {{config['SERVICE_NAME']}} – GOV.UK{% endblock %}
+
 {% block beforeContent %}
 {{ super() }}
 {% endblock %}
@@ -7,7 +9,20 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Create a new role</h1>
+    {{ super() }}
+    <form action="" method="post" novalidate>
+      {{ form.csrf_token }}
+      
+      {{ form.title(params={
+        'label': {
+          'classes': "govuk-label--l",
+          'isPageHeading': true
+        },
+        'spellcheck': true
+      }) }}
+      
+      {{ form.submit }}
+  </form>
   </div>
 </div>
 {% endblock %}
