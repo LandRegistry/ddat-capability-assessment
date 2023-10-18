@@ -8,37 +8,15 @@ from flask import Response, flash, redirect, render_template, request, url_for
 from app import db
 from app.models import Role
 from app.role import bp
-from app.role.forms import RoleDeleteForm, RoleFilterForm, RoleForm
+from app.role.forms import RoleDeleteForm, RoleForm
 
 
 @bp.route("/", methods=["GET", "POST"])
 def list():
     """Get a list of Roles."""
-    form = RoleFilterForm()
+    roles = db.session.execute(db.select(Role).order_by(Role.title)).scalars()
 
-    page = request.args.get("page", type=int)
-    per_page = request.args.get("per_page", type=int)
-    search = request.args.get("query", type=str)
-    sort_by = request.args.get("sort", type=str)
-
-    query = Role.query
-
-    if search:
-        query = query.filter(Role.title.ilike(f"%{search}%"))
-        form.query.data = search
-
-    if sort_by and sort_by != "created_at":
-        query = query.order_by(getattr(Role, sort_by).asc(), Role.created_at.desc())
-        form.sort.data = sort_by
-    else:
-        query = query.order_by(Role.created_at.desc())
-
-    if per_page:
-        form.per_page.data = str(per_page)
-
-    roles = query.paginate(page=page, per_page=per_page, max_per_page=40)
-
-    return render_template("list_roles.html", roles=roles, form=form)
+    return render_template("list_roles.html", roles=roles)
 
 
 @bp.route("/new", methods=["GET", "POST"])
@@ -47,7 +25,7 @@ def create():
     form = RoleForm()
 
     if form.validate_on_submit():
-        new_role = Role(title=form.title.data.strip().title())
+        new_role = Role(title=form.title.data)
         db.session.add(new_role)
         db.session.commit()
         flash(
