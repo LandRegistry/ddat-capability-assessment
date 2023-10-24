@@ -11,6 +11,5 @@ govuk-frontend-wtf
 gunicorn
 jsmin
 psycopg2
-python-dotenv
 pytz
 redis
