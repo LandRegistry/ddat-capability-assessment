@@ -14,18 +14,9 @@ RUN pip install -r requirements.txt \
     && chown -R containeruser:containeruser ./
 
 # Set environment variables
-ENV CONTACT_EMAIL="[contact email]" \
-    CONTACT_PHONE="[contact phone]" \
-    DATABASE_URL="postgresql://mash:mash@db:5432/capability" \
-    DEPARTMENT_NAME="HM Land Registry" \
-    DEPARTMENT_URL="https://www.gov.uk/government/organisations/land-registry" \
+ENV FLASK_APP=ddat-capability-assessment.py \
     PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    REDIS_URL="redis://cache:6379" \
-    SECRET_KEY=4f378500459bb58fecf903ea3c113069f11f150b33388f56fc89f7edce0e6a84 \
-    SERVICE_NAME="DDaT Capability Assessment" \
-    SERVICE_PHASE="Alpha" \
-    SERVICE_URL="[url of service]"
+    PYTHONUNBUFFERED=1
 
 USER containeruser
 
