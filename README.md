@@ -65,25 +65,21 @@ C4Container
 
 ```mermaid
 erDiagram
-    ROLE }|--|| ROLE_SKILL : "has"
-    ROLE_SKILL ||--|{ SKILL : "has"
+    ROLE ||--|{ ROLE_LEVEL : "has"
 
     ROLE {
         uuid id PK
         string title
-        timestamp created_at
-        timestamp updated_at
-    }
-    SKILL {
-        uuid id PK
         string description
-        string level
         timestamp created_at
         timestamp updated_at
     }
-    ROLE_SKILL {
-        uuid role_id FK
-        uuid skill_id FK
+    ROLE_LEVEL {
+        uuid id PK
+        string title
+        string description
+        timestamp created_at
+        timestamp updated_at
     }
 ```
 
