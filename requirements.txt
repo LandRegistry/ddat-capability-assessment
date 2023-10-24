@@ -6,7 +6,7 @@
 #
 alembic==1.12.0
     # via flask-migrate
-blinker==1.6.2
+blinker==1.6.3
     # via flask
 brotli==1.1.0
     # via flask-compress
@@ -20,9 +20,9 @@ deprecated==1.2.14
     # via limits
 dnspython==2.4.2
     # via email-validator
-email-validator==2.0.0.post2
+email-validator==2.1.0.post1
     # via -r requirements.in
-flask==2.3.3
+flask==3.0.0
     # via
     #   -r requirements.in
     #   flask-assets
@@ -32,7 +32,7 @@ flask==2.3.3
     #   flask-sqlalchemy
     #   flask-wtf
     #   govuk-frontend-wtf
-flask-assets==2.0
+flask-assets==2.1.0
     # via -r requirements.in
 flask-compress==1.14
     # via -r requirements.in
@@ -95,13 +95,13 @@ psycopg2==2.9.9
     # via -r requirements.in
 pygments==2.16.1
     # via rich
-python-dotenv==1.0.0
+pytz==2023.3.post1
     # via -r requirements.in
 redis==5.0.1
     # via -r requirements.in
 rich==13.6.0
     # via flask-limiter
-sqlalchemy==2.0.21
+sqlalchemy==2.0.22
     # via
     #   alembic
     #   flask-sqlalchemy
@@ -117,7 +117,7 @@ werkzeug==3.0.0
     # via flask
 wrapt==1.15.0
     # via deprecated
-wtforms==3.0.1
+wtforms==3.1.0
     # via
     #   flask-wtf
     #   govuk-frontend-wtf

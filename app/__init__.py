@@ -9,13 +9,19 @@ from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from govuk_frontend_wtf.main import WTFormsHelpers
 from jinja2 import ChoiceLoader, PackageLoader, PrefixLoader
+from sqlalchemy.orm import DeclarativeBase
 
 from config import Config
+
+
+class Base(DeclarativeBase):
+    pass
+
 
 assets = Environment()
 compress = Compress()
 csrf = CSRFProtect()
-db = SQLAlchemy()
+db = SQLAlchemy(model_class=Base)
 limiter = Limiter(get_remote_address, default_limits=["2 per second", "60 per minute"])
 migrate = Migrate()
 talisman = Talisman()
@@ -68,7 +74,12 @@ def create_app(config_class=Config):
 
     # Register blueprints
     from app.main import bp as main_bp
+    from app.role import bp as role_bp
 
     app.register_blueprint(main_bp)
+    app.register_blueprint(role_bp)
 
     return app
+
+
+from app import models  # noqa: E402,F401

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{%- from 'govuk_frontend_jinja/components/button/macro.html' import govukButton -%}
+
+{% block beforeContent %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ super() }}
+    <h1 class="govuk-heading-l">Roles</h1>
+    <div class="govuk-button-group">
+      {{ govukButton({
+        'text': "New role",
+        'href': url_for('role.create')
+      }) }}
+
+      {{ govukButton({
+        'text': "Download CSV",
+        'href': url_for('role.download'),
+        'classes': "govuk-button--secondary"
+      }) }}
+    </div>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for role in roles %}
+      <li>{{ role.title }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

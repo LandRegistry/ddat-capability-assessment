@@ -4,44 +4,83 @@
 
 ### Required
 
-- Python 3.8.x or higher
-
-### Optional
-
-- Redis 4.0.x or higher (for rate limiting, otherwise in-memory storage is used)
+- Docker
 
 ## Getting started
 
-### Create venv and install requirements
+### Set local environment variables
 
-```shell
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt ; pip3 install -r requirements_dev.txt
-```
+In the `Dockerfile` file you will find a number of environment variables. These are injected as global variables into the app and pre-populated into page templates as appropriate. Enter your specific information for the following:
 
-### Get GOV.UK Frontend assets
+- CONTACT_EMAIL
+- CONTACT_PHONE
+- DEPARTMENT_NAME
+- DEPARTMENT_URL
+- SERVICE_NAME
+- SERVICE_PHASE
+- SERVICE_URL
 
-For convenience a shell script has been provided to download and extract the GOV.UK Frontend distribution assets
+### Get the latest GOV.UK Frontend assets
 
 ```shell
 ./build.sh
 ```
 
-### Run app
+### Run containers
 
 ```shell
-flask run
+docker compose up
 ```
 
-You should now have the app running on <http://localhost:5000/>
+You should now have the app running on <https://localhost:8000/>.
 
 ## Testing
 
 To run the tests:
 
 ```shell
-python -m pytest --cov=app --cov-report=term-missing --cov-branch
+docker compose exec web python -m pytest --cov=app --cov-report=term-missing --cov-branch
+```
+
+## Development environment
+
+```mermaid
+C4Container
+    title C4 Container diagram for DDaT Capability Assessment
+
+    Person(user, User, "A person in a DDaT Capability Framework defined role", $tags="v1.0")
+
+    Container_Boundary(c1, "DDaT Capability Assessment") {
+        Container(web_app, "Web Application", "Python, Flask", "Provides all the functionality to users via their web browser")
+        ContainerDb(database, "Database", "PostgreSQL, Docker Container", "Stores data relating to roles, skills, levels and assessments")
+        ContainerDb(cache, "Cache", "Redis, Docker Container", "Stores temporary cached data to improve performance")
+    }
+
+    Rel(user, web_app, "Uses", "HTTPS")
+    Rel(web_app, database, "Reads from and writes to", "sync, SQL")
+    Rel(web_app, cache, "Reads from and writes to", "sync")
+```
+
+## Data model
+
+```mermaid
+erDiagram
+    ROLE ||--|{ ROLE_LEVEL : "has"
+
+    ROLE {
+        uuid id PK
+        string title
+        string description
+        timestamp created_at
+        timestamp updated_at
+    }
+    ROLE_LEVEL {
+        uuid id PK
+        string title
+        string description
+        timestamp created_at
+        timestamp updated_at
+    }
 ```
 
 ## Contributors

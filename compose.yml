@@ -1,0 +1,40 @@
+services:
+  web:
+    container_name: ddat-capability-assessment
+    build: .
+    restart: always
+    environment:
+      - CONTACT_EMAIL=[contact email]
+      - CONTACT_PHONE=[contact phone]
+      - DATABASE_URL=postgresql://mash:mash@db:5432/capability
+      - DEPARTMENT_NAME=HM Land Registry
+      - DEPARTMENT_URL=https://www.gov.uk/government/organisations/land-registry
+      - REDIS_URL=redis://cache:6379
+      - SECRET_KEY=4f378500459bb58fecf903ea3c113069f11f150b33388f56fc89f7edce0e6a84
+      - SERVICE_NAME=DDaT Capability Assessment
+      - SERVICE_PHASE=Alpha
+      - SERVICE_URL=[url of service]
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/home/containeruser
+    depends_on:
+      - db
+      - cache
+  cache:
+    container_name: redis
+    image: redis:7.0-alpine
+    restart: always
+    ports:
+      - 6379:6379
+  db:
+    container_name: postgres
+    image: postgres:15-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: mash
+      POSTGRES_PASSWORD: mash
+      POSTGRES_DB: capability
+  
