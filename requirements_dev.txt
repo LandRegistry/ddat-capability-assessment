@@ -8,7 +8,7 @@ attrs==23.1.0
     # via flake8-bugbear
 bandit==1.7.5
     # via -r requirements_dev.in
-black==23.9.1
+black==23.11.0
     # via -r requirements_dev.in
 build==1.0.3
     # via pip-tools
@@ -23,7 +23,9 @@ click==8.1.7
     #   pur
     #   safety
 coverage[toml]==7.3.2
-    # via pytest-cov
+    # via
+    #   coverage
+    #   pytest-cov
 dparse==0.6.3
     # via safety
 flake8==6.1.0
